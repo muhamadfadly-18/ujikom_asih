@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\Api\GalleryController;
+use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Admin\InformasiController;
+use App\Http\Controllers\Admin\AgendaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
+Route::get('/datagallery', [GalleryController::class, 'getAllData']);
+Route::get('/datainofrmasi', [InformasiController::class, 'getAllData']);
+Route::get('/dataagenda', [AgendaController::class, 'getAllData']);

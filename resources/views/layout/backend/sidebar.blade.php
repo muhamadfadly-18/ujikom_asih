@@ -3,9 +3,10 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
         <div class="sidebar-brand-icon">
-            <i class="fab fa-laravel"></i>
+            <i class="fas fa-images"></i>
+
         </div>
-        <div class="sidebar-brand-text mx-3">CHIKADMIN</div>
+        <div class="sidebar-brand-text mx-3">GALLERY</div>
     </a>
 
     <!-- Divider -->
@@ -34,7 +35,7 @@
     </li>
     @endCan --}}
 
-    <li class="nav-item dropdown">
+    {{-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="dataMasterDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-database"></i>
             <span>Kategori</span>
@@ -47,13 +48,30 @@
                 <i class="fas fa-fw fa-user"></i> Agenda
             </a>
         </div>
-    </li>
+    </li> --}}
     
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('informasi.index') }}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Informasi</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('Agenda.index') }}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Agenda</span></a>
+    </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ route('gallery.index') }}">
             <i class="fas fa-fw fa-user"></i>
             <span>Gallery</span></a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('kategori.index') }}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Kategori</span></a>
+    </li>
+
+   
 
 
     <!-- Divider -->

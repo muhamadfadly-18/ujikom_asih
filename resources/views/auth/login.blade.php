@@ -2,6 +2,21 @@
     'title' => 'Login'
 ])
 @section('content')
+<style>
+    body {
+        background-image: url('{{ asset("images/IMG-20241103-WA0072.jpg") }}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh; /* Pastikan halaman penuh */
+        margin: 0;
+    }
+    .card {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+    }
+</style>
+
 <div class="row justify-content-center">
 
     <div class="col-xl-5 col-lg-12 col-md-9">
@@ -37,11 +52,12 @@
                                 <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
                             </form>
                             <hr>
-                            <div class="text-center">
-                                <a class="small" href="{{ route('forgot-password') }}">Forgot Password?</a>
-                            </div>
+                            
                             <div class="text-center">
                                 <a class="small" href="{{ route('register') }}">Create an Account!</a>
+                            </div>
+                            <div class="text-center mt-3">
+                                <a href="{{ route('welcome') }}" class="btn btn-secondary btn-user btn-block">Back to dahboard</a>
                             </div>
                         </div>
                     </div>

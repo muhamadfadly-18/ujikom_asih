@@ -2,6 +2,20 @@
 'title' => 'Register'
 ])
 @section('content')
+<style>
+    body {
+        background-image: url('{{ asset("images/IMG-20241103-WA0072.jpg") }}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh; /* Pastikan halaman penuh */
+        margin: 0;
+    }
+    .card {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+    }
+</style>
 <div class="row justify-content-center">
 
     <div class="col-xl-5 col-lg-12 col-md-9">

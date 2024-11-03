@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Auth; // Import Auth
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\admin\InformasiController;
 use App\Http\Controllers\admin\AgendaController;
-use App\Http\Controllers\admin\KategoriController;
 use App\Http\Controllers\admin\GalerryController;
+use App\Http\Controllers\admin\KategoriController;
+use App\Http\Controllers\ProfilesekolaController;
 use App\Http\Controllers\Auth\RegisterController;
 
 
@@ -26,7 +27,8 @@ use App\Http\Controllers\User\ProfileController;
 // ...
 */
 
-Route::view('/','welcome');
+Route::view('/', 'welcome')->name('welcome');
+
 
 
 Route::group(['namespace' => 'Admin','middleware' => 'auth','prefix' => 'admin'],function(){
@@ -38,8 +40,8 @@ Route::group(['namespace' => 'Admin','middleware' => 'auth','prefix' => 'admin']
     Route::resource('/user', 'UserController');
     Route::resource('/informasi', 'InformasiController');
     Route::resource('/Agenda', 'AgendaController');
-    Route::resource('/kategori', 'KategoriController');
     Route::resource('/gallery', 'GalleryController');
+    Route::resource('/kategori', 'kategoriController');
 
    
 });
@@ -63,6 +65,8 @@ Route::view('/register', 'auth.register')->name('register');
 Route::view('/forgot-password', 'auth.forgot-password')->name('forgot-password');
 Route::post('/logout', function () {
     Auth::logout(); // Pastikan untuk memanggil logout
-    return redirect()->to('/login'); // Redirect ke halaman login
+    return redirect()->to('/'); // Redirect ke halaman login
 })->name('logout');
 
+
+Route::resource('/profilesekola', 'ProfilesekolaController');

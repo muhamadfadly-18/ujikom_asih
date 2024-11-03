@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+
+use App\Models\kategori;
 use Illuminate\Http\Request;
+use DataTables;
 
 class KategoriController extends Controller
 {
@@ -12,11 +15,25 @@ class KategoriController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+   public function index(Request $request)
     {
-        //
-    }
+        if ($request->ajax()) {
+            // $data = Gallery::select('*')->orderBy('created_at','DESC');
+            $data = kategori::orderBy('created_at', 'desc')->get();
+            return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                           $btn = '<div class="row"><a href="javascript:void(0)" id="'.$row->id.'" class="btn btn-primary btn-sm ml-2 btn-edit">Edit</a>';
+                           $btn .= '<a href="javascript:void(0)" id="'.$row->id.'" class="btn btn-danger btn-sm ml-2 btn-delete">Delete</a></div>';
 
+                            return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+        
+        return view('admin.kategori.index');
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -34,17 +51,18 @@ class KategoriController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        
+        Kategori::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\kategori  $kategori
+     * @param  \App\Models\Kategori  $Kategori
      * @return \Illuminate\Http\Response
      */
-    public function show(kategori $kategori)
+    public function show(Kategori $Kategori)
     {
         //
     }
@@ -52,34 +70,21 @@ class KategoriController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\kategori  $kategori
+     * @param  \App\Models\Kategori  $Kategori
      * @return \Illuminate\Http\Response
      */
-    public function edit(kategori $kategori)
+    public function edit(Kategori $Kategori)
     {
-        //
+        return response()->json($Kategori);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\kategori  $kategori
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, kategori $kategori)
+    public function update(Request $request, Kategori $Kategori)
     {
-        //
+        $Kategori->update($request->all());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\kategori  $kategori
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(kategori $kategori)
+    public function destroy(Kategori $Kategori)
     {
-        //
+        $Kategori->delete();
     }
 }

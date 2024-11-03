@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\gallery;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Http\JsonResponse;
 
 
 class GalleryController extends Controller
@@ -33,6 +34,18 @@ class GalleryController extends Controller
         }
         
         return view('admin.gallery.index');
+    }
+
+    public function getAllData(): JsonResponse
+    {
+        // Mengambil semua data dari model
+        $data = Gallery::all(); 
+
+        // Mengembalikan data sebagai JSON
+        return response()->json([
+            'status' => 'success',
+            'data' => $data,
+        ]);
     }
 
     /**

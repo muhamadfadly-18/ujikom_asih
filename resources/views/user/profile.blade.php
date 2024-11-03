@@ -15,7 +15,8 @@
 				  <div class="card mb-3" style="max-width: 540px;">
 					  <div class="row no-gutters">
 					    <div class="col-md-4">
-					      <img src="{{ asset('images/backend/laravel.jpg') }}" class="card-img" alt="">
+							<img class="img-profile rounded-circle"
+							src="{{ asset('template/backend/sb-admin-2') }}/img/undraw_profile.svg">
 					    </div>
 					    <div class="col-md-8">
 					      <div class="card-body">

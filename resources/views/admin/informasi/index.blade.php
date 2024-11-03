@@ -1,6 +1,6 @@
 @extends('layout.backend.app',[
-    'title' => 'Manage informasi',
-    'pageTitle' =>'Manage informasi',
+    'title' => 'Manage Informasi',
+    'pageTitle' =>'Manage Informasi',
 ])
 
 @push('css')
@@ -26,7 +26,8 @@
                             <th>judul</th>
                             <th>deskripsi</th>
                             <th>foto</th>
-                            <th>categori</th>
+                           
+                            <th>Kategori_id</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -57,15 +58,21 @@
             <label for="e">deskripsi</label>
             <input type="" required="" id="e" name="deskripsi" class="form-control">
         </div>
+
         <div class="form-group">
-            <label for="p">foto</label>
-            <input type="foto" required="" id="p" name="foto" class="form-control">
-        </div>
+          <label for="p">foto</label>
+          <input type="file" required="" id="foto" name="foto" class="form-control">
+      </div>
         
         <div class="form-group">
-            <label for="p">kategori</label>
-            <input type="kategori" required="" id="p" name="kategori" class="form-control">
-        </div>
+          <label for="kategori_id">Kategori</label>
+          <select id="kategori_id" name="kategori_id" class="form-control" required>
+              <option value="">Pilih Kategori</option>
+              @foreach ($kategori as $item)
+                  <option value="{{ $item->id }}">{{ $item->kategori }}</option>
+              @endforeach
+          </select>
+      </div>
         
       </div>
       <div class="modal-footer">
@@ -100,14 +107,23 @@
             <input type="" required="" id="deskripsi" name="deskripsi" class="form-control">
         </div>
         <div class="form-group">
-            <label for="foto">foto</label>
-            <input type="" required="" id="foto" name="foto" class="form-control">
-        </div>
+          <label for="p">foto</label>
+          <img id="currentPhoto" src="" width="100" height="100" style="display:none;" alt="Current Photo">
+          <input type="file" id="foto" name="foto" class="form-control">
+      </div>
+      
         <div class="form-group">
-            <label for="kategori">kategori</label>
-            <input type="" required="" id="kategori" name="kategori" class="form-control">
-        </div>
-        
+          <label for="kategori_id">Kategori</label>
+          <select id="kategori_id" name="kategori_id" class="form-control" >
+              <option value="">Pilih Kategori</option>
+              @foreach ($kategori as $item)
+                  <option value="{{ $item->id }}" {{ $item->id ? 'selected' : '' }}>
+                      {{ $item->kategori }}
+                  </option>
+              @endforeach
+          </select>
+      </div>
+      
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -157,7 +173,13 @@
             {data: 'DT_RowIndex' , name: 'id'},
             {data: 'judul', name: 'judul'},
             {data: 'deskripsi', name: 'deskripsi'},
-            {data: 'foto', name: 'foto'},
+            {
+            data: 'foto', 
+            name: 'foto',
+            render: function(data) {
+                return `<img src="/${data}" width="50" height="50">`;
+            }
+        },
             {data: 'kategori', name: 'kategori'},
             {data: 'action', name: 'action', orderable: false, searchable: true},
         ]
@@ -175,41 +197,62 @@
 
     // Create 
 
-    $("#createForm").on("submit",function(e){
-        e.preventDefault()
+    $("#createForm").on("submit", function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
 
-        $.ajax({
-            url: "/admin/informasi",
-            method: "POST",
-            data: $(this).serialize(),
-            success:function(){
-                $("#create-modal").modal("hide")
-                $('.data-table').DataTable().ajax.reload();
-                flash("success","Data berhasil ditambah")
-                resetForm()
+    console.log(formData.get('kategori_id')); // Debugging line
+    console.log(formData); // Debugging line
+
+    $.ajax({
+        url: "/admin/informasi",
+        method: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function() {
+            $("#create-modal").modal("hide");
+            $('.data-table').DataTable().ajax.reload();
+            flash("success", "Data berhasil ditambah");
+            resetForm();
+        },
+        error: function(xhr) {
+            var errors = xhr.responseJSON.errors;
+            var errorMessage = '';
+            for (var key in errors) {
+                errorMessage += errors[key] + '<br>';
             }
-        })
-    })
+            flash("danger", errorMessage);
+        }
+    });
+});
 
     // Create
 
     // Edit & Update
-    $('body').on("click",".btn-edit",function(){
-        var id = $(this).attr("id")
-        
-        $.ajax({
-            url: "/admin/informasi/"+id+"/edit",
-            method: "GET",
-            success:function(response){
-                $("#edit-modal").modal("show")
-                $("#id").val(response.id)
-                $("#judul").val(response.judul)
-                $("#deskripsi").val(response.deskripsi)
-                $("#foto").val(response.foto)
-                $("#kategori").val(response.kategori)
+    $('body').on("click", ".btn-edit", function () {
+    var id = $(this).attr("id")
+
+    $.ajax({
+        url: "/admin/informasi/" + id + "/edit",
+        method: "GET",
+        success: function (response) {
+            $("#edit-modal").modal("show");
+            $("#id").val(response.id);
+            $("#judul").val(response.judul);
+            $("#deskripsi").val(response.deskripsi);
+            $("#kategori_id").val(response.kategori_id);
+
+            // Set the source of the current photo and show the image
+            if (response.foto) {
+                $("#currentPhoto").attr("src", "/" + response.foto).show();
+            } else {
+                $("#currentPhoto").hide();
             }
-        })
+        }
     });
+});
+
 
     $("#editForm").on("submit",function(e){
         e.preventDefault()

@@ -26,7 +26,7 @@
                             <th>judul</th>
                             <th>deskripsi</th>
                            
-                            <th>categori</th>
+                            <th>Kategori_id</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -60,9 +60,14 @@
 
         
         <div class="form-group">
-            <label for="p">kategori</label>
-            <input type="kategori" required="" id="p" name="kategori" class="form-control">
-        </div>
+          <label for="kategori_id">Kategori</label>
+          <select id="kategori_id" name="kategori_id" class="form-control" required>
+              <option value="">Pilih Kategori</option>
+              @foreach ($kategori as $item)
+                  <option value="{{ $item->id }}">{{ $item->kategori }}</option>
+              @endforeach
+          </select>
+      </div>
         
       </div>
       <div class="modal-footer">
@@ -97,10 +102,17 @@
             <input type="" required="" id="deskripsi" name="deskripsi" class="form-control">
         </div>
         <div class="form-group">
-            <label for="kategori">kategori</label>
-            <input type="" required="" id="kategori" name="kategori" class="form-control">
-        </div>
-        
+          <label for="kategori_id">Kategori</label>
+          <select id="kategori_id" name="kategori_id" class="form-control" required>
+              <option value="">Pilih Kategori</option>
+              @foreach ($kategori as $item)
+                  <option value="{{ $item->id }}" {{ $item->id ? 'selected' : '' }}>
+                      {{ $item->kategori }}
+                  </option>
+              @endforeach
+          </select>
+      </div>
+      
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -197,7 +209,7 @@
                 $("#id").val(response.id)
                 $("#judul").val(response.judul)
                 $("#deskripsi").val(response.deskripsi)
-                $("#kategori").val(response.kategori)
+                $("#kategori_id").val(response.kategori_id)
             }
         })
     });
