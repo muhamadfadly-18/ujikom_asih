@@ -17,13 +17,12 @@ https://templatemo.com/tm-556-catalog-z
 
 -->
 <style>
-    .tm-gallery img {
-    width: 100%; /* Sesuaikan lebar gambar dengan kolom */
-    height: 200px; /* Atur tinggi gambar agar seragam */
-    object-fit: cover; /* Potong gambar agar pas dengan ukuran yang diatur */
-    border-radius: 8px; /* Opsional: tambahkan border radius untuk tampilan lebih halus */
-}
-
+.tm-gallery img {
+        width: 100%; /* Lebar gambar mengikuti card */
+        height: 250px; /* Tinggi tetap untuk semua gambar */
+        object-fit: cover; /* Potong gambar agar sesuai ukuran */
+        border-radius: 8px; /* Opsional: tampil lebih halus */
+    }
 </style>
 </head>
 <body>
@@ -62,7 +61,9 @@ https://templatemo.com/tm-556-catalog-z
         </div>
     </nav>
     <div class="tm-hero d-flex justify-content-center align-items-center" 
-    style="background-image: url('{{ asset('images/IMG-20241103-WA0072.jpg') }}'); background-position: center; background-size: cover;">
+    style="background-image: url('{{ asset('images/IMG-20241103-WA0072.jpg') }}'); background-position: center; background-size: cover; height: 400px;">
+
+
 
 
 
@@ -92,22 +93,20 @@ https://templatemo.com/tm-556-catalog-z
   </div>
 
   <div class="row tm-gallery">
-      @foreach ($gallery as $item)
-          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
-              <figure class="effect-ming tm-video-item">
-                  <img src="{{ asset($item->foto) }}" alt="Image" class="img-fluid">
-                  <figcaption class="d-flex align-items-center justify-content-center">
-                      <h2>{{ $item->text }}</h2>
-                  </figcaption>                    
-              </figure>
-              <div class="d-flex justify-content-between tm-text-gray">
-                  <span class="tm-text-gray-light">{{ $item->tanggal }}</span>
-              </div>
-          </div>
-      @endforeach
-  </div>
+    @foreach ($gallery as $item)
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+            <figure class="effect-ming tm-video-item d-flex align-items-center justify-content-center">
+                <img src="{{ asset('img/'.$item->foto) }}" alt="Image" class="img-fluid">
+                <figcaption class="d-flex align-items-center justify-content-center">
+                    <h2>{{ $item->text }}</h2>
+                </figcaption>                    
+            </figure>
+            <div class="d-flex justify-content-between tm-text-gray">
+                <span class="tm-text-gray-light">{{ $item->tanggal }}</span>
+            </div>
+        </div>
+    @endforeach
 </div>
-
     
             
         </div> <!-- row -->

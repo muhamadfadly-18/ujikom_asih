@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\InformasiController;
 use App\Http\Controllers\Admin\AgendaController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +29,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/datagallery', [GalleryController::class, 'getAllData']);
 Route::get('/datainofrmasi', [InformasiController::class, 'getAllData']);
 Route::get('/dataagenda', [AgendaController::class, 'getAllData']);
+
+Route::post('login', [LoginController::class, 'login']);
+Route::post('/register', [RegisterController::class, 'regis']);

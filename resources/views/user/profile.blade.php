@@ -16,7 +16,7 @@
 					  <div class="row no-gutters">
 					    <div class="col-md-4">
 							<img class="img-profile rounded-circle"
-							src="{{ asset('template/backend/sb-admin-2') }}/img/undraw_profile.svg">
+							src="{{ asset('template/backend/sb-admin-2') }}/img/undraw_profile_3.svg">
 					    </div>
 					    <div class="col-md-8">
 					      <div class="card-body">

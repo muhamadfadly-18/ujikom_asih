@@ -36,17 +36,35 @@ class GalleryController extends Controller
         return view('admin.gallery.index');
     }
 
-    public function getAllData(): JsonResponse
+    public function getAllData()
     {
-        // Mengambil semua data dari model
-        $data = Gallery::all(); 
-
-        // Mengembalikan data sebagai JSON
+        // Mengambil semua data dari tabel Gallery
+        $galleryData = Gallery::all();
+    
+        // Mengambil IP lokal dari file .env
+        $serverIp = config('app.SERVER_IP'); // Default ke 127.0.0.1 jika tidak ada IP di .env
+        // dd($serverIp); // Debug untuk memastikan IP diambil dengan benar
+        
+        // Menambahkan field foto_url untuk setiap item
+        $galleryDataWithUrl = $galleryData->map(function ($item) use ($serverIp) {
+            $item->foto_url = 'http://' . $serverIp . '/img/' . $item->foto;
+            return $item;
+        });
+    
+        // Tambahkan header CORS di sini
         return response()->json([
             'status' => 'success',
-            'data' => $data,
-        ]);
+            'data' => $galleryDataWithUrl
+        ])
+        ->header('Access-Control-Allow-Origin', '*')  // Allow all origins
+        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')  // Allow necessary methods
+        ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');  // Allow necessary headers
     }
+    
+    
+    
+    
+
 
     /**
      * Show the form for creating a new resource.

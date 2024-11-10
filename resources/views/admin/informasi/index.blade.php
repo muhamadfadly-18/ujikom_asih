@@ -163,28 +163,31 @@
 
 <script type="text/javascript">
 
-  $(function () {
-    
+$(function () {
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
         ajax: "{{ route('informasi.index') }}",
         columns: [
-            {data: 'DT_RowIndex' , name: 'id'},
+            {data: 'DT_RowIndex', name: 'id'},
             {data: 'judul', name: 'judul'},
             {data: 'deskripsi', name: 'deskripsi'},
             {
-            data: 'foto', 
-            name: 'foto',
-            render: function(data) {
-                return `<img src="/${data}" width="50" height="50">`;
-            }
-        },
+                data: 'foto',
+                name: 'foto',
+                render: function(data, type, full, meta) {
+                    return '<img src="/img/' + data + '" alt="Foto" width="50" height="50"/>';
+                },
+                orderable: false,
+                searchable: false
+            },
             {data: 'kategori', name: 'kategori'},
             {data: 'action', name: 'action', orderable: false, searchable: true},
         ]
     });
-  });
+});
+
+
 
 
     // Reset Form
@@ -245,7 +248,7 @@
 
             // Set the source of the current photo and show the image
             if (response.foto) {
-                $("#currentPhoto").attr("src", "/" + response.foto).show();
+                $("#currentPhoto").attr("src", "/img" + response.foto).show();
             } else {
                 $("#currentPhoto").hide();
             }

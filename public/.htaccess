@@ -6,7 +6,7 @@
     RewriteEngine On
 
     # Handle Authorization Header
-    RewriteCond %{HTTP:Authorization} .
+    RewriteCond %{HTTP:Authorization} . 
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
     # Redirect Trailing Slashes If Not A Folder...
@@ -19,3 +19,16 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# <IfModule mod_headers.c>
+#     # CORS for images in the /public/img/ folder
+#     <FilesMatch "\.(jpg|jpeg|png|gif|bmp|tiff|svg|webp|ico)$">
+#         Header set Access-Control-Allow-Origin "http://localhost:51865"
+#         Header set Access-Control-Allow-Methods "GET"
+#         Header set Access-Control-Allow-Headers "Content-Type, X-Requested-With, Authorization"
+#     </FilesMatch>
+# </IfModule>
+<FilesMatch "\.(jpg|jpeg|png|gif|bmp|webp|svg)$">
+    Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+

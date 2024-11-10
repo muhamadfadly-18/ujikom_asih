@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-
+    'SERVER_IP' => env('SERVER_IP'),
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
@@ -26,6 +26,7 @@ return [
     |
     */
 
+    
     'env' => env('APP_ENV', 'production'),
 
     /*
