@@ -32,3 +32,5 @@ Route::get('/dataagenda', [AgendaController::class, 'getAllData']);
 
 Route::post('login', [LoginController::class, 'login']);
 Route::post('/register', [RegisterController::class, 'regis']);
+
+
