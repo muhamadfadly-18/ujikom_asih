@@ -25,5 +25,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('/datagallery', [GalleryController::class, 'getAllData']);
-Route::get('/datainofrmasi', [InformasiController::class, 'getAllData']);
+Route::get('/datainformasi', [InformasiController::class, 'getAllData']);
 Route::get('/dataagenda', [AgendaController::class, 'getAllData']);
