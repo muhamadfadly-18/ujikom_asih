@@ -121,10 +121,10 @@
     <div class="container my-5 kompetensi-keahlian text-center">
         <h2>Kompetensi Keahlian</h2>
         <div class="row">
-            <div class="col-md-3 grid-item"><img src="{{asset('images/IMG-20241103-WA0075.jpg')}}" alt="PPLG Logo" class="img-fluid"></div>
-            <div class="col-md-3 grid-item"><img src="{{asset('images/tjkt.png')}}" alt="TKJ Logo" class="img-fluid"></div>
-            <div class="col-md-3 grid-item"><img src="{{asset('images/IMG-20241103-WA0073.jpg')}}" alt="TKR Logo" class="img-fluid"></div>
-            <div class="col-md-3 grid-item"><img src="{{asset('images/tflm.jpeg')}}" alt="TFLDM Logo" class="img-fluid"></div>
+            <div class="col-md-3 grid-item"><img src="{{asset('images/PPLG.jpg')}}" alt="PPLG Logo" class="img-fluid"></div>
+            <div class="col-md-3 grid-item"><img src="{{asset('images/TKJ.jpg')}}" alt="TKJ Logo" class="img-fluid"></div>
+            <div class="col-md-3 grid-item"><img src="{{asset('images/teknik_otomotif.jpg')}}" alt="TKR Logo" class="img-fluid"></div>
+            <div class="col-md-3 grid-item"><img src="{{asset('images/Pengelasan.jpg')}}" alt="TFLDM Logo" class="img-fluid"></div>
         </div>
     </div>
 

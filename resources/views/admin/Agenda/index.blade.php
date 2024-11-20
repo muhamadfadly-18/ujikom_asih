@@ -26,7 +26,7 @@
                             <th>judul</th>
                             <th>deskripsi</th>
                            
-                            <th>Kategori_id</th>
+                            <th>Kategori</th>
                             <th>Action</th>
                         </tr>
                     </thead>

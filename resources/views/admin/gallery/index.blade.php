@@ -59,8 +59,8 @@
       <div class="modal-body">
         <form id="createForm">
           <div class="form-group">
-              <label for="n">Name</label>
-              <input type="text" required id="n" name="text" class="form-control">
+              <label for="n">Text</label>
+              <textarea required id="n" name="text" class="form-control"></textarea>
           </div>
           <div class="form-group">
               <label for="e">Tanggal</label>
@@ -96,11 +96,11 @@
           <input type="hidden" id="id" name="id">
           <div class="form-group">
               <label for="text">Text</label>
-              <input type="text" required id="text" name="text" class="form-control">
+              <textarea  id="n" name="text" class="form-control"></textarea>
           </div>
           <div class="form-group">
               <label for="tanggal">Tanggal</label>
-              <input type="date" required id="tanggal" name="tanggal" class="form-control">
+              <input type="date"  id="tanggal" name="tanggal" class="form-control">
           </div>
           <div class="form-group">
             <label for="foto">Foto</label>

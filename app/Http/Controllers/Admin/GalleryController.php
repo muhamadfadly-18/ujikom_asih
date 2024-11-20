@@ -31,7 +31,9 @@ class GalleryController extends Controller
                     })
                     ->rawColumns(['action'])
                     ->make(true);
+                    
         }
+        
         
         return view('admin.gallery.index');
     }
@@ -47,7 +49,8 @@ class GalleryController extends Controller
         
         // Menambahkan field foto_url untuk setiap item
         $galleryDataWithUrl = $galleryData->map(function ($item) use ($serverIp) {
-            $item->foto_url = 'http://' . $serverIp . '/img/' . $item->foto;
+            $item->foto_url = url('/img/' . $item->foto);
+
             return $item;
         });
     
@@ -94,7 +97,7 @@ class GalleryController extends Controller
         $file = $request->file('foto');
         $filename = time() . '_' . $file->getClientOriginalName();
         $file->move(public_path('img'), $filename);
-        $fotoPath = 'img/' . $filename;
+        $fotoPath = '' . $filename;
     }
 
     gallery::create([

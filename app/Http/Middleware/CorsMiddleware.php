@@ -9,15 +9,14 @@ class CorsMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
+        // Proses request lebih dulu
         $response = $next($request);
-    
-        // Set CORS headers untuk gambar
-        if ($request->is('img/*')) {
-            $response->headers->set('Access-Control-Allow-Origin', 'http://localhost:51865');
-            $response->headers->set('Access-Control-Allow-Methods', 'GET');
-        }
-    
+        
+        // Menambahkan header CORS
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        
         return $response;
     }
-    
 }

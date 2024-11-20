@@ -4,7 +4,7 @@
 @section('content')
 <style>
     body {
-        background-image: url('{{ asset("images/IMG-20241103-WA0072.jpg") }}');
+        background-image: url('{{ asset("images/Smkn_04_bogor.jpg") }}');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;

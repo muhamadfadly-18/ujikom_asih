@@ -27,7 +27,7 @@
                             <th>deskripsi</th>
                             <th>foto</th>
                            
-                            <th>Kategori_id</th>
+                            <th>Kategori</th>
                             <th>Action</th>
                         </tr>
                     </thead>

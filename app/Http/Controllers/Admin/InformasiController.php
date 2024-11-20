@@ -92,7 +92,7 @@ class InformasiController extends Controller
             Informasi::create([
                 'judul' => $request->judul,
                 'deskripsi' => $request->deskripsi,
-                'foto' => 'img/' . $filename,
+                'foto' =>  $filename,
                 'kategori_id' => $request->kategori_id, // Change to kategori_id
             ]);
         }

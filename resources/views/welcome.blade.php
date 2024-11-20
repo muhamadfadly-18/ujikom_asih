@@ -61,7 +61,7 @@ https://templatemo.com/tm-556-catalog-z
         </div>
     </nav>
     <div class="tm-hero d-flex justify-content-center align-items-center" 
-    style="background-image: url('{{ asset('images/IMG-20241103-WA0072.jpg') }}'); background-position: center; background-size: cover; height: 400px;">
+    style="background-image: url('{{ asset('images/Smkn_04_bogor.jpg') }}'); background-position: center; background-size: cover; height: 400px;">
 
 
 
@@ -87,48 +87,79 @@ https://templatemo.com/tm-556-catalog-z
       </h2>
       <div class="col-6 d-flex justify-content-end align-items-center">
           <form action="" class="tm-text-primary">
-              Page <input type="text" value="1" size="1" class="tm-input-paging tm-text-primary"> of {{ $gallery->count() }}
+            @for ($i = 1; $i <= $gallery->lastPage(); $i++)
+              Page <input type="text" value="1" size="1" class="tm-input-paging tm-text-primary" {{ $i == $gallery->currentPage() ? 'active' : '' }}> of {{ $i }}
+              @endfor
           </form>
       </div>
   </div>
 
-  <div class="row tm-gallery">
-    @foreach ($gallery as $item)
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
-            <figure class="effect-ming tm-video-item d-flex align-items-center justify-content-center">
-                <img src="{{ asset('img/'.$item->foto) }}" alt="Image" class="img-fluid">
-                <figcaption class="d-flex align-items-center justify-content-center">
-                    <h2>{{ $item->text }}</h2>
-                </figcaption>                    
-            </figure>
-            <div class="d-flex justify-content-between tm-text-gray">
-                <span class="tm-text-gray-light">{{ $item->tanggal }}</span>
+    <div class="row tm-gallery">
+        @foreach ($gallery as $item)
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <div class="card">
+                    <figure class="effect-ming tm-video-item d-flex align-items-center justify-content-center">
+                        <img src="{{ asset('img/'.$item->foto) }}" alt="Image" class="card-img-top img-fluid">
+                        <figcaption class="d-flex align-items-center justify-content-center">
+                            <h2>{{ $item->text }}</h2>
+                        </figcaption>
+                    </figure>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $item->text }}</h5>
+                        <p class="card-text">Tanggal: {{ $item->tanggal }}</p>
+                    </div>
+                </div>
             </div>
-        </div>
-    @endforeach
-</div>
+        @endforeach
+    </div>
+
     
             
         </div> <!-- row -->
-        <div class="row tm-mb-90">
-          <div class="col-12 d-flex justify-content-between align-items-center tm-paging-col">
-              <a href="{{ $gallery->previousPageUrl() }}" class="btn btn-primary tm-btn-prev mb-2 {{ $gallery->onFirstPage() ? 'disabled' : '' }}">Previous</a>
-              <div class="tm-paging d-flex">
-                  @for ($i = 1; $i <= $gallery->lastPage(); $i++)
-                      <a href="{{ $gallery->url($i) }}" class="tm-paging-link {{ $i == $gallery->currentPage() ? 'active' : '' }}">{{ $i }}</a>
-                  @endfor
-              </div>
-              <a href="{{ $gallery->nextPageUrl() }}" class="btn btn-primary tm-btn-next {{ $gallery->hasMorePages() ? '' : 'disabled' }}">Next Page</a>
-          </div>            
-      </div>
+        <div class="col-6 d-flex justify-content-end align-items-center">
+            <form action="" class="tm-text-primary">
+                {{ $gallery->links('pagination::bootstrap-4') }}
+            </form>
+        </div>
+        
+        
     </div> <!-- container-fluid, tm-container-content -->
     <footer class="tm-bg-gray pt-3 pb-3 tm-text-gray tm-footer">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 col-md-7 col-12 px-5 mb-3 text-center" style="font-size: 14px; font-weight: bold;">
-                Copyright &copy; 2024 Ashinovatech Company. All rights reserved.
+        <div class="container">
+            <div class="row justify-content-between">
+                <!-- Sekola dan Visi/Misi -->
+                <div class="col-lg-6 col-md-6 col-12 text-left" style="font-size: 14px; font-weight: bold;">
+                    <h1><strong style="color: black"> SMKN 04 BOGOR</strong></h1>
+                    <p><strong>Visi:</strong></p>
+                    <p>Terwujudnya SMK Pusat Keunggulan melalui terciptanya pelajar pancasila yang berbasis teknologi, berwawasan lingkungan dan berkewirausahaan.</p>
+                    <p><strong>Misi:</strong></p>
+                    <ul>
+                        <li>Mewujudkan karakter pelajar pancasila beriman dan bertaqwa kepada Tuhan Yang Maha Esa dan berakhlak mulia, berkebhinekaan global, gotong royong, mandiri, kreatif dan bernalar kritis.</li>
+                        <li>Mengembangkan pembelajaran dan pengelolaan sekolah berbasis Teknologi Informasi dan Komunikasi.</li>
+                        <li>Mengembangkan sekolah yang berwawasan Adiwiyata Mandiri.</li>
+                        <li>Mengembangkan usaha dalam berbagai bidang secara optimal sehingga memiliki kemandirian dan daya saing tinggi.</li>
+                    </ul>
+                </div>
+    
+                <!-- Google Maps -->
+                <div class="col-lg-6 col-md-6 col-12 text-right">
+                    <iframe
+                        width="100%"
+                        height="300px"
+                        frameborder="0"
+                        style="border:0"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.04983961244!2d106.82211897504129!3d-6.640733393353841!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c8b16ee07ef5%3A0x14ab253dd267de49!2sSMK%20Negeri%204%20Bogor%20(Nebrazka)!5e0!3m2!1sid!2sid!4v1731226686593!5m2!1sid!2sid"
+                        allowfullscreen>
+                    </iframe>
+                </div>
             </div>
+    
+            <!-- Copyright -->
+            <p style="text-align: center">&copy; 2024 Ashinovatech Company. All rights reserved.</p>
         </div>
     </footer>
+    
+    
     
     
     <script src="{{asset('js/plugins.js')}}"></script>
