@@ -45,17 +45,7 @@ class AgendaController extends Controller
         return view('admin.Agenda.index', compact('kategori'));
     }
     
-    public function getAllData(): JsonResponse
-    {
-        // Mengambil semua data dari model
-        $data = Agenda::all();
-
-        // Mengembalikan data sebagai JSON
-        return response()->json([
-            'status' => 'success',
-            'data' => $data,
-        ]);
-    }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -110,4 +100,73 @@ class AgendaController extends Controller
     {
         $Agenda->delete();
     }
+
+
+    //api flutter
+
+    public function getAllData(): JsonResponse
+    {
+        // Mengambil semua data agenda beserta nama kategori
+        $data = Agenda::with('kategori:id,kategori')->get();
+    
+        // Mengembalikan data sebagai JSON
+        return response()->json([
+            'status' => 'success',
+            'data' => $data,
+        ]);
+    }
+    
+
+    public function storedata(Request $request)
+    {
+        $validatedData = $request->validate([
+            'judul' => 'required|string',
+            'deskripsi' => 'required|string',
+        ]);
+    
+        // Simpan data ke database dengan data yang sudah tervalidasi
+        $agenda = Agenda::create($validatedData);
+    
+        return response()->json([
+            'status' => 'success',
+            'data' => $agenda,
+        ]);
+    }
+    
+    
+        public function updatedata(Request $request, $id)
+        {
+            $agenda = Agenda::find($id);
+    
+            if (!$agenda) {
+                return response()->json(['status' => 'error', 'message' => 'Data not found'], 404);
+            }
+    
+            $validatedData = $request->validate([
+                'judul' => 'required|string',
+                'deskripsi' => 'required|string', 
+                // 'kategori_id' => 'required|string'
+            ]);
+    
+            $agenda->update($validatedData);
+    
+            return response()->json([
+                'status' => 'success',
+                'data' => $agenda,
+            ]);
+        }
+        public function destroydata($id)
+        {
+            $agenda = Agenda::find($id);
+    
+            if (!$agenda) {
+                return response()->json(['status' => 'error', 'message' => 'Data not found'], 404);
+            }
+    
+            $agenda->delete();
+    
+            return response()->json(['status' => 'success', 'message' => 'Data deleted successfully']);
+        }
+    
+    
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\InformasiController;
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +28,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('/datagallery', [GalleryController::class, 'getAllData']);
+Route::post('/gallery', [GalleryController::class, 'storedata']);
+Route::put('/datagallery/{id}', [datagalleryController::class, 'updatedata']);
+Route::delete('/datagallery/{id}', [GalleryController::class, 'destroydata']);
+
+
 Route::get('/datainofrmasi', [InformasiController::class, 'getAllData']);
+Route::post('/informasi', [InformasiController::class, 'storedata']);
+Route::put('/datainofrmasi/{id}', [InformasiController::class, 'updatedata']);
+Route::delete('/datainofrmasi/{id}', [InformasiController::class, 'destroydata']);
+
 Route::get('/dataagenda', [AgendaController::class, 'getAllData']);
+Route::post('/agenda', [AgendaController::class, 'storedata']);
+Route::put('/dataagenda/{id}', [AgendaController::class, 'updatedata']);
+Route::delete('/dataagenda/{id}', [AgendaController::class, 'destroydata']);
+
+Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'getUser']);
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/register', [RegisterController::class, 'regis']);

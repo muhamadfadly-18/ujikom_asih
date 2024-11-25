@@ -38,37 +38,7 @@ class GalleryController extends Controller
         return view('admin.gallery.index');
     }
 
-    public function getAllData()
-    {
-        // Mengambil semua data dari tabel Gallery
-        $galleryData = Gallery::all();
     
-        // Mengambil IP lokal dari file .env
-        $serverIp = config('app.SERVER_IP'); // Default ke 127.0.0.1 jika tidak ada IP di .env
-        // dd($serverIp); // Debug untuk memastikan IP diambil dengan benar
-        
-        // Menambahkan field foto_url untuk setiap item
-        $galleryDataWithUrl = $galleryData->map(function ($item) use ($serverIp) {
-            $item->foto_url = url('/img/' . $item->foto);
-
-            return $item;
-        });
-    
-        // Tambahkan header CORS di sini
-        return response()->json([
-            'status' => 'success',
-            'data' => $galleryDataWithUrl
-        ])
-        ->header('Access-Control-Allow-Origin', '*')  // Allow all origins
-        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')  // Allow necessary methods
-        ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');  // Allow necessary headers
-    }
-    
-    
-    
-    
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -161,4 +131,101 @@ class GalleryController extends Controller
     {
         $gallery->delete();
     }
+
+
+    //api flutter
+
+    public function getAllData()
+    {
+        // Mengambil semua data dari tabel Gallery
+        $galleryData = Gallery::all();
+    
+        // Mengambil IP lokal dari file .env
+        $serverIp = config('app.SERVER_IP'); // Default ke 127.0.0.1 jika tidak ada IP di .env
+        // dd($serverIp); // Debug untuk memastikan IP diambil dengan benar
+        
+        // Menambahkan field foto_url untuk setiap item
+        $galleryDataWithUrl = $galleryData->map(function ($item) use ($serverIp) {
+            $item->foto_url = url('/img/' . $item->foto);
+
+            return $item;
+        });
+    
+        // Tambahkan header CORS di sini
+        return response()->json([
+            'status' => 'success',
+            'data' => $galleryDataWithUrl
+        ])
+        ->header('Access-Control-Allow-Origin', '*')  // Allow all origins
+        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')  // Allow necessary methods
+        ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');  // Allow necessary headers
+    }
+    public function storedata(Request $request)
+{
+    // Validasi input
+    $validatedData = $request->validate([
+        'text' => 'required|string',
+        'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'tanggal' => 'required|date',
+    ]);
+
+    // Inisialisasi variabel untuk foto
+    $fotoPath = null;
+
+    // Jika ada file foto yang diupload
+    if ($request->hasFile('foto')) {
+        $file = $request->file('foto');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('img'), $filename);
+        $fotoPath =  $filename; // Simpan path relatif ke folder img
+    }
+
+    // Tambahkan foto path ke data yang akan disimpan
+    $galleryData = array_merge($validatedData, ['foto' => $fotoPath]);
+
+    // Simpan data ke database
+    $gallery = Gallery::create($galleryData);
+
+    return response()->json([
+        'status' => 'success',
+        'data' => $gallery,
+    ]);
+}
+
+
+    public function updatedata(Request $request, $id)
+    {
+        $gallery = Gallery::find($id);
+
+        if (!$gallery) {
+            return response()->json(['status' => 'error', 'message' => 'Data not found'], 404);
+        }
+
+        $validatedData = $request->validate([
+            'text' => 'required|string',
+            'foto' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'tanggal' => 'required|date', 
+        ]);
+
+        $gallery->update($validatedData);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $gallery,
+        ]);
+    }
+    public function destroydata($id)
+    {
+        $gallery = Gallery::find($id);
+
+        if (!$gallery) {
+            return response()->json(['status' => 'error', 'message' => 'Data not found'], 404);
+        }
+
+        $gallery->delete();
+
+        return response()->json(['status' => 'success', 'message' => 'Data deleted successfully']);
+    }
+
+
 }

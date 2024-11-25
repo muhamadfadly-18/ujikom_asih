@@ -10,4 +10,9 @@ class kategori extends Model
     use HasFactory;
 
     protected $fillable = ['id','kategori'];
+        public function agendas()
+    {
+        return $this->hasMany(Agenda::class, 'kategori_id', 'id');
+    }
+
 }

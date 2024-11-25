@@ -1,6 +1,6 @@
 @extends('layout.backend.app',[
-    'title' => 'Manage Informasi',
-    'pageTitle' => 'Manage Informasi',
+    'title' => 'Manage Gallery',
+    'pageTitle' => 'Manage Gallery',
 ])
 
 @push('css')

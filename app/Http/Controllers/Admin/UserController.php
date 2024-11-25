@@ -9,6 +9,8 @@ use DataTables;
 use Hash;
 
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserController extends Controller
@@ -62,4 +64,25 @@ class UserController extends Controller
     {
         $user->delete();
     }
+
+    //api flutter
+
+    public function getUser(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data user berhasil diambil',
+                'data' => $user,
+            ], 200);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'User belum login',
+        ], 401);
+    }
+    
 }
